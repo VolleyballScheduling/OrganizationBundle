@@ -1,8 +1,6 @@
 <?php
 namespace Volleyball\Bundle\OrganizationBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
-
-class RegionRepository extends EntityRepository
+class RegionRepository extends \Doctrine\ORM\EntityRepository
 {
 }

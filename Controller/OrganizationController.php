@@ -1,18 +1,13 @@
 <?php
 namespace Volleyball\Bundle\OrganizationBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use \Pagerfanta\Pagerfanta;
+use \Pagerfanta\Adapter\DoctrineORMAdapter;
 
-use Volleyball\Bundle\OrganizationBundle\Entity\Organization;
-use Volleyball\Bundle\OrganizationBundle\Form\Type\OrganizationType;
-use Volleyball\Bundle\UtilityBundle\Controller\UtilityController as Controller;
-
-class OrganizationController extends Controller
+class OrganizationController extends \Volleyball\Bundle\UtilityBundle\Controller\UtilityController
 {
     /**
      * @Route("/", name="volleyball_organization_index")
@@ -20,11 +15,9 @@ class OrganizationController extends Controller
      */
     public function indexAction()
     {
-        // get route name/params to decypher data to delimit by
         $query = $this->get('doctrine')
             ->getRepository('VolleyballOrganizationBundle:Organization')
-            ->createQueryBuilder('l')
-            ->orderBy('l.updated, l.name', 'ASC');
+            ->findAll();
 
         $pager = new Pagerfanta(new DoctrineORMAdapter($query));
         $pager->setMaxPerPage($this->getRequest()->get('pageMax', 5));
@@ -62,10 +55,13 @@ class OrganizationController extends Controller
      * @Route("/new", name="volleyball_organization_new")
      * @Template("VolleyballOrganizationBundle:Organization:new.html.twig")
      */
-    public function newAction(Request $request)
+    public function newAction(\Symfony\Component\HttpFoundation\Request $request)
     {
-        $organization = new Organization();
-        $form = $this->createForm(new OrganizationType(), $organization);
+        $organization = new \Volleyball\Bundle\OrganizationBundle\Entity\Organization();
+        $form = $this->createForm(
+            new \Volleyball\Bundle\OrganizationBundle\Form\Type\OrganizationType(),
+            $organization
+        );
 
         if ("POST" == $request->getMethod()) {
             $form->handleRequest($this->getRequest());

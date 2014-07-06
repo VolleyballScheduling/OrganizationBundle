@@ -1,18 +1,13 @@
 <?php
 namespace Volleyball\Bundle\OrganizationBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use \Pagerfanta\Pagerfanta;
+use \Pagerfanta\Adapter\DoctrineORMAdapter;
 
-use Volleyball\Bundle\OrganizationBundle\Entity\Region;
-use Volleyball\Bundle\OrganizationBundle\Form\Type\RegionType;
-use Volleyball\Bundle\UtilityBundle\Controller\UtilityController as Controller;
-
-class RegionController extends Controller
+class RegionController extends \Volleyball\Bundle\UtilityBundle\Controller\UtilityController
 {
     /**
      * @Route("/", name="volleyball_region_index")
@@ -23,8 +18,7 @@ class RegionController extends Controller
         // get route name/params to decypher data to delimit by
         $query = $this->get('doctrine')
             ->getRepository('VolleyballOrganizationBundle:Region')
-            ->createQueryBuilder('l')
-            ->orderBy('l.updated, l.name', 'ASC');
+            ->findAll();
 
         $pager = new Pagerfanta(new DoctrineORMAdapter($query));
         $pager->setMaxPerPage($this->getRequest()->get('pageMax', 5));
@@ -62,10 +56,13 @@ class RegionController extends Controller
      * @Route("/new", name="volleyball_region_new")
      * @Template("VolleyballOrganizationBundle:Region:new.html.twig")
      */
-    public function newAction(Request $request)
+    public function newAction(\Symfony\Component\HttpFoundation\Request $request)
     {
-        $region = new Region();
-        $form = $this->createForm(new RegionType(), $region);
+        $region = new \Volleyball\Bundle\OrganizationBundle\Entity\Region();
+        $form = $this->createForm(
+            new \Volleyball\Bundle\OrganizationBundle\Form\Type\RegionFormType(),
+            $region
+        );
 
         if ("POST" == $request->getMethod()) {
             $form->handleRequest($this->getRequest());

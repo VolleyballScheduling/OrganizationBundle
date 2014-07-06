@@ -1,34 +1,62 @@
-###############################################################################
 ## Organization
-###############################################################################
-organizations:
+volleyball_organization_index:
     pattern: /organizations
     defaults: { _controller: VolleyballOrganizationBundle:Organization:index }
-organization_show:
-    pattern: /organizations/{organization}
+
+volleyball_organization_show:
+    pattern: /organizations/{slug}
     defaults: { _controller: VolleyballOrganizationBundle:Organization:show }
-organization_new:
+
+volleyball_organization_new:
     pattern: /organizations/new
     defaults: { _controller: VolleyballOrganizationBundle:Organization:new }
-organization_edit:
+
+volleyball_organization_edit:
     pattern: /organizations/{organization}/edit
     defaults: { _controller: VolleyballOrganizationBundle:Organization:edit }
 
-###############################################################################
 ## Council
-###############################################################################
-councils:
+volleyball_council_index:
     pattern: /councils
     defaults: { _controller: VolleyballOrganizationBundle:Council:index }
-councils_by_organization:
-    pattern: /organizations/{organization}/councils
-    defaults: { _controller: VolleyballOrganizationBundle:Council:organization }
-councils_show:
-    pattern: /councils/{council}
+
+volleyball_council_index_by_organization:
+    pattern: /organizations/{slug}/councils
+    defaults: { _controller: VolleyballOrganizationBundle:Council:index }
+
+volleyball_council_show:
+    pattern: /councils/{slug}
     defaults: { _controller: VolleyballOrganizationBundle:Council:show }
-councils_new:
+
+volleyball_council_new:
     pattern: /councils/new
     defaults: { _controller: VolleyballOrganizationBundle:Council:new }
-councils_edit:
-    pattern: /councils/{council}/edit
+
+volleyball_council_edit:
+    pattern: /councils/{slug}/edit
     defaults: { _controller: VolleyballOrganizationBundle:Council:edit }
+
+## Region
+volleyball_region_index:
+    pattern: /regions
+    defaults: { _controller: VolleyballOrganizationBundle:Region:index }
+
+volleyball_region_index_by_organization:
+    pattern: /organizations/{slug}/regions
+    defaults: { _controller: VolleyballOrganizationBundle:Region:index }
+
+volleyball_region_index_by_council_organization:
+    pattern: /organizations/{o_slug}/councils/{c_slug}/regions
+    defaults: { _controller: VolleyballOrganizationBundle:Region:index }
+
+volleyball_region_show:
+    pattern: /regions/{slug}
+    defaults: { _controller: VolleyballOrganizationBundle:Region:show }
+
+volleyball_region_new:
+    pattern: /regions/new
+    defaults: { _controller: VolleyballOrganizationBundle:Region:new }
+
+volleyball_region_edit:
+    pattern: /regions/{slug}/edit
+    defaults: { _controller: VolleyballOrganizationBundle:Region:edit }

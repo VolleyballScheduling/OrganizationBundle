@@ -1,18 +1,18 @@
 <?php
-
 namespace Volleyball\Bundle\OrganizationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use Volleyball\Bundle\UtilityBundle\Traits\SluggableTrait;
-use Volleyball\Bundle\UtilityBundle\Traits\TimestampableTrait;
+
+use \Volleyball\Bundle\UtilityBundle\Traits\SluggableTrait;
+use \Volleyball\Bundle\UtilityBundle\Traits\TimestampableTrait;
 
 /**
- * @ORM\Entity(repositoryClass="Volleyball\Bundle\OrganizationBundle\Repository\OrganizationRepository")
+ * @ORM\Entity(repositoryClass="\Volleyball\Bundle\OrganizationBundle\Repository\OrganizationRepository")
  * @ORM\Table(name="organization")
  */
-class Organization
+class Organization extends \Volleyball\Component\Organization\Model\Organization
 {
     use SluggableTrait;
     use TimestampableTrait;
@@ -23,6 +23,42 @@ class Organization
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+     * @{inheritdoc}
+     * @ORM\Column(type="string")
+     * @Assert\Length(
+     *      min = "1",
+     *      max = "250",
+     *      minMessage = "Name must be at least {{ limit }} characters length",
+     *      maxMessage = "Name cannot be longer than {{ limit }} characters length"
+     * )
+     */
+    protected $name;
+    
+    /**
+     * @{inheritdoc}
+     * @ORM\Column(type="text")
+     */
+    protected $description;
+    
+    /**
+     * @{inheritdoc}
+     * @ORM\OneToMany(targetEntity="Volleyball\Bundle\PasselBundle\Entity\Type", mappedBy="organization")
+     */
+    protected $types;
+    
+    /**
+     * @{inheritdoc}
+     * @ORM\OneToMany(targetEntity="Council", mappedBy="organization")
+     */
+    protected $councils;
+    
+    /**
+     * @{inheritdoc}
+     * @ORM\OneToMany(targetEntity="Region", mappedBy="organization")
+     */
+    protected $regions;
 
     /**
      * Get id
@@ -35,21 +71,7 @@ class Organization
     }
 
     /**
-     * @ORM\Column(type="string")
-     * @Assert\Length(
-     *      min = "1",
-     *      max = "250",
-     *      minMessage = "Name must be at least {{ limit }} characters length",
-     *      maxMessage = "Name cannot be longer than {{ limit }} characters length"
-     * )
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * Get name
-     *
-     * @return string
+     * @{inheritdoc}
      */
     public function getName()
     {
@@ -57,11 +79,7 @@ class Organization
     }
 
     /**
-     * Set name
-     *
-     * @param string $name name
-     *
-     * @return Passel
+     * @{inheritdoc}
      */
     public function setName($name)
     {
@@ -71,14 +89,7 @@ class Organization
     }
 
     /**
-     * @ORM\Column(type="text")
-     */
-    protected $description;
-
-    /**
-     * Get description
-     *
-     * @return string
+     * @{inheritdoc}
      */
     public function getDescription()
     {
@@ -86,11 +97,7 @@ class Organization
     }
 
     /**
-     * Set description
-     *
-     * @param string $description string
-     *
-     * @return Organization
+     * @{inheritdoc}
      */
     public function setDescription($description)
     {
@@ -100,14 +107,7 @@ class Organization
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="Volleyball\Bundle\PasselBundle\Entity\Type", mappedBy="organization")
-     */
-    protected $types;
-
-    /**
-     * Get types
-     *
-     * @return ArrayCollection
+     * @{inheritdoc}
      */
     public function getTypes()
     {
@@ -115,11 +115,7 @@ class Organization
     }
 
     /**
-     * Set types
-     *
-     * @param array $types types
-     *
-     * @return self
+     * @{inheritdoc}
      */
     public function setTypes(array $types)
     {
@@ -143,11 +139,7 @@ class Organization
     }
 
     /**
-     * Get an type
-     *
-     * @param Type|String $type type
-     *
-     * @return Type
+     * @{inheritdoc}
      */
     public function getType($type)
     {
@@ -155,13 +147,9 @@ class Organization
     }
 
     /**
-     * Add an type
-     *
-     * @param Type $type type
-     *
-     * @return self
+     * @{inheritdoc}
      */
-    public function addType(Volleyball\Bundle\PasselBundle\Entity\Type $type)
+    public function addType(\Volleyball\Bundle\PasselBundle\Entity\Type $type)
     {
         $this->types->add($type);
 
@@ -169,11 +157,7 @@ class Organization
     }
 
     /**
-     * Remove an type
-     *
-     * @param Type|String $type type
-     *
-     * @return self
+     * @{inheritdoc}
      */
     public function removeType($type)
     {
@@ -183,14 +167,7 @@ class Organization
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="Council", mappedBy="organization")
-     */
-    protected $councils;
-
-    /**
-     * Get councils
-     *
-     * @return ArrayCollection
+     * @{inheritdoc}
      */
     public function getCouncils()
     {
@@ -198,11 +175,7 @@ class Organization
     }
 
     /**
-     * Set councils
-     *
-     * @param array $councils councils
-     *
-     * @return self
+     * @{inheritdoc}
      */
     public function setCouncils(array $councils)
     {
@@ -226,11 +199,7 @@ class Organization
     }
 
     /**
-     * Get an council
-     *
-     * @param Council|String $council council
-     *
-     * @return Council
+     * @{inheritdoc}
      */
     public function getCouncil($council)
     {
@@ -238,11 +207,7 @@ class Organization
     }
 
     /**
-     * Add an council
-     *
-     * @param Council $council council
-     *
-     * @return self
+     * @{inheritdoc}
      */
     public function addCouncil(Council $council)
     {
@@ -252,11 +217,7 @@ class Organization
     }
 
     /**
-     * Remove an council
-     *
-     * @param Council|String $council council
-     *
-     * @return self
+     * @{inheritdoc}
      */
     public function removeCouncil($council)
     {
@@ -266,14 +227,7 @@ class Organization
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="Region", mappedBy="organization")
-     */
-    protected $regions;
-
-    /**
-     * Get regions
-     *
-     * @return ArrayCollection
+     * @{inheritdoc}
      */
     public function getRegions()
     {
@@ -281,11 +235,7 @@ class Organization
     }
 
     /**
-     * Set regions
-     *
-     * @param array $regions regions
-     *
-     * @return self
+     * @{inheritdoc}
      */
     public function setRegions(array $regions)
     {
@@ -309,11 +259,7 @@ class Organization
     }
 
     /**
-     * Get an region
-     *
-     * @param Region|String $region region
-     *
-     * @return Region
+     * @{inheritdoc}
      */
     public function getRegion($region)
     {
@@ -321,11 +267,7 @@ class Organization
     }
 
     /**
-     * Add an region
-     *
-     * @param Region $region region
-     *
-     * @return self
+     * @{inheritdoc}
      */
     public function addRegion(Region $region)
     {
@@ -335,264 +277,11 @@ class Organization
     }
 
     /**
-     * Remove an region
-     *
-     * @param Region|String $region region
-     *
-     * @return self
+     * @{inheritdoc}
      */
     public function removeRegion($region)
     {
         $this->regions->remove($region);
-
-        return $this;
-    }
-
-    /**
-     * @ORM\OneToMany(targetEntity="Volleyball\Bundle\PasselBundle\Entity\Passel", mappedBy="organization")
-     */
-    protected $passels;
-
-    /**
-     * Get passels
-     *
-     * @return ArrayCollection
-     */
-    public function getPassels()
-    {
-        return $this->passels;
-    }
-
-    /**
-     * Set passels
-     *
-     * @param array $passels passels
-     *
-     * @return self
-     */
-    public function setPassels(array $passels)
-    {
-        if (! $passels instanceof ArrayCollection) {
-            $passels = new ArrayCollection($passels);
-        }
-
-        $this->passels = $passels;
-
-        return $this;
-    }
-
-    /**
-     * Has passels
-     *
-     * @return boolean
-     */
-    public function hasPassels()
-    {
-        return !$this->passels->isEmpty();
-    }
-
-    /**
-     * Get an passel
-     *
-     * @param Passel|String $passel passel
-     *
-     * @return Passel
-     */
-    public function getPassel($passel)
-    {
-        return $this->passels->get($passel);
-    }
-
-    /**
-     * Add an passel
-     *
-     * @param Passel $passel passel
-     *
-     * @return self
-     */
-    public function addPassel(Volleyball\Bundle\PasselBundle\Entity\Passel $passel)
-    {
-        $this->passels->add($passel);
-
-        return $this;
-    }
-
-    /**
-     * Remove an passel
-     *
-     * @param Passel|String $passel passel
-     *
-     * @return self
-     */
-    public function removePassel($passel)
-    {
-        $this->passels->remove($passel);
-
-        return $this;
-    }
-
-    /**
-     * @ORM\OneToMany(targetEntity="Volleyball\Bundle\FacilityBundle\Entity\Facility", mappedBy="organization")
-     */
-    protected $facilities;
-
-    /**
-     * Get facilities
-     *
-     * @return ArrayCollection
-     */
-    public function getFacilities()
-    {
-        return $this->facilities;
-    }
-
-    /**
-     * Set facilities
-     *
-     * @param array $facilities facilities
-     *
-     * @return self
-     */
-    public function setFacilities(array $facilities)
-    {
-        if (! $facilities instanceof ArrayCollection) {
-            $facilities = new ArrayCollection($facilities);
-        }
-
-        $this->facilities = $facilities;
-
-        return $this;
-    }
-
-    /**
-     * Has facilities
-     *
-     * @return boolean
-     */
-    public function hasFacilities()
-    {
-        return !$this->facilities->isEmpty();
-    }
-
-    /**
-     * Get an facility
-     *
-     * @param Facility|String $facility facility
-     *
-     * @return Facility
-     */
-    public function getFacility($facility)
-    {
-        return $this->facilities->get($facility);
-    }
-
-    /**
-     * Add an facility
-     *
-     * @param Facility $facility facility
-     *
-     * @return self
-     */
-    public function addFacility(Volleyball\Bundle\FacilityBundle\Entity\Facility $facility)
-    {
-        $this->facilities->add($facility);
-
-        return $this;
-    }
-
-    /**
-     * Remove an facility
-     *
-     * @param Facility|String $facility facility
-     *
-     * @return self
-     */
-    public function removeFacility($facility)
-    {
-        $this->facilities->remove($facility);
-
-        return $this;
-    }
-
-        /**
-     * @ORM\OneToMany(targetEntity="Volleyball\Bundle\FacilityBundle\Entity\Faculty", mappedBy="organization")
-     */
-    protected $facultys;
-
-    /**
-     * Get facultys
-     *
-     * @return ArrayCollection
-     */
-    public function getFacultys()
-    {
-        return $this->facultys;
-    }
-
-    /**
-     * Set facultys
-     *
-     * @param array $facultys facultys
-     *
-     * @return self
-     */
-    public function setFacultys(array $facultys)
-    {
-        if (! $facultys instanceof ArrayCollection) {
-            $facultys = new ArrayCollection($facultys);
-        }
-
-        $this->facultys = $facultys;
-
-        return $this;
-    }
-
-    /**
-     * Has facultys
-     *
-     * @return boolean
-     */
-    public function hasFacultys()
-    {
-        return !$this->facultys->isEmpty();
-    }
-
-    /**
-     * Get an faculty
-     *
-     * @param Faculty|String $faculty faculty
-     *
-     * @return Faculty
-     */
-    public function getFaculty($faculty)
-    {
-        return $this->facultys->get($faculty);
-    }
-
-    /**
-     * Add an faculty
-     *
-     * @param Faculty $faculty faculty
-     *
-     * @return self
-     */
-    public function addFaculty(Volleyball\Bundle\FacilityBundle\Entity\Faculty $faculty)
-    {
-        $this->facultys->add($faculty);
-
-        return $this;
-    }
-
-    /**
-     * Remove an faculty
-     *
-     * @param Faculty|String $faculty faculty
-     *
-     * @return self
-     */
-    public function removeFaculty($faculty)
-    {
-        $this->facultys->remove($faculty);
 
         return $this;
     }
@@ -605,8 +294,5 @@ class Organization
         $this->types = new \Doctrine\Common\Collections\ArrayCollection();
         $this->councils = new \Doctrine\Common\Collections\ArrayCollection();
         $this->regions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->passels = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->facilities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->facultys = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

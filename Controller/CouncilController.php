@@ -1,18 +1,13 @@
 <?php
 namespace Volleyball\Bundle\OrganizationBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use \Pagerfanta\Pagerfanta;
+use \Pagerfanta\Adapter\DoctrineORMAdapter;
 
-use Volleyball\Bundle\OrganizationBundle\Entity\Council;
-use Volleyball\Bundle\OrganizationBundle\Form\Type\CouncilType;
-use Volleyball\Bundle\UtilityBundle\Controller\UtilityController as Controller;
-
-class CouncilController extends Controller
+class CouncilController extends \Volleyball\Bundle\UtilityBundle\Controller\UtilityController
 {
     /**
      * @Route("/", name="volleyball_council_index")
@@ -20,11 +15,9 @@ class CouncilController extends Controller
      */
     public function indexAction()
     {
-        // get route name/params to decypher data to delimit by
         $query = $this->get('doctrine')
             ->getRepository('VolleyballOrganizationBundle:Council')
-            ->createQueryBuilder('l')
-            ->orderBy('l.updated, l.name', 'ASC');
+            ->findAll();
 
         $pager = new Pagerfanta(new DoctrineORMAdapter($query));
         $pager->setMaxPerPage($this->getRequest()->get('pageMax', 5));
@@ -62,10 +55,13 @@ class CouncilController extends Controller
      * @Route("/new", name="volleyball_council_new")
      * @Template("VolleyballOrganizationBundle:Council:new.html.twig")
      */
-    public function newAction(Request $request)
+    public function newAction(\Symfony\Component\HttpFoundation\Request $request)
     {
-        $council = new Council();
-        $form = $this->createForm(new CouncilType(), $council);
+        $council = new \Volleyball\Bundle\OrganizationBundle\Entity\Council();
+        $form = $this->createForm(
+            new \Volleyball\Bundle\OrganizationBundle\Form\Type\CouncilFormType(),
+            $council
+        );
 
         if ("POST" == $request->getMethod()) {
             $form->handleRequest($this->getRequest());
