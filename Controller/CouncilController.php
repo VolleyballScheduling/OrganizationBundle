@@ -3,6 +3,7 @@ namespace Volleyball\Bundle\OrganizationBundle\Controller;
 
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use \Symfony\Component\HttpFoundation\Request;
 
 use \Pagerfanta\Pagerfanta;
 use \Pagerfanta\Adapter\DoctrineORMAdapter;
@@ -13,7 +14,7 @@ class CouncilController extends \Volleyball\Bundle\UtilityBundle\Controller\Util
      * @Route("/", name="volleyball_council_index")
      * @Template("VolleyballOrganizationBundle:Council:index.html.twig")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $query = $this->get('doctrine')
             ->getRepository('VolleyballOrganizationBundle:Council')
@@ -33,8 +34,9 @@ class CouncilController extends \Volleyball\Bundle\UtilityBundle\Controller\Util
      * @Route("/{slug}", name="volleyball_council_show")
      * @Template("VolleyballOrganizationBundle:Council:show.html.twig")
      */
-    public function showAction($slug)
+    public function showAction(Request $request)
     {
+        $slug = $request->getParameter('slug');
         $council = $this->getDoctrine()
             ->getRepository('VolleyballOrganizationBundle:Council')
             ->findOneBySlug($slug);
@@ -55,7 +57,7 @@ class CouncilController extends \Volleyball\Bundle\UtilityBundle\Controller\Util
      * @Route("/new", name="volleyball_council_new")
      * @Template("VolleyballOrganizationBundle:Council:new.html.twig")
      */
-    public function newAction(\Symfony\Component\HttpFoundation\Request $request)
+    public function newAction(Request $request)
     {
         $council = new \Volleyball\Bundle\OrganizationBundle\Entity\Council();
         $form = $this->createForm(

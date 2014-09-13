@@ -43,14 +43,14 @@ class Council extends \Volleyball\Component\Organization\Model\Council
     
     /**
      * @{inheritdoc}
-     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="councils")
+     * @ORM\ManyToOne(targetEntity="\Volleyball\Bundle\OrganizationBundle\Entity\Organization", inversedBy="councils")
      * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
      */
     protected $organization;
     
     /**
      * @{inheritdoc}
-     * @ORM\OneToMany(targetEntity="Region", mappedBy="council")
+     * @ORM\OneToMany(targetEntity="\Volleyball\Bundle\OrganizationBundle\Entity\Region", mappedBy="council")
      */
     protected $regions;
 
@@ -111,7 +111,7 @@ class Council extends \Volleyball\Component\Organization\Model\Council
     /**
      * @{inheritdoc}
      */
-    public function setOrganization(\Volleyball\Bundle\OrganizationBundle\Entity\Organization $organization)
+    public function setOrganization(\Volleyball\Component\Organization\Model\Organization $organization)
     {
         $this->organization = $organization;
 
@@ -161,7 +161,7 @@ class Council extends \Volleyball\Component\Organization\Model\Council
     /**
      * @{inheritdoc}
      */
-    public function addRegion(\Volleyball\Bundle\OrganizationBundle\Entity\Region $region)
+    public function addRegion(\Volleyball\Component\Organization\Model\Region $region)
     {
         $this->regions->add($region);
 
@@ -171,10 +171,10 @@ class Council extends \Volleyball\Component\Organization\Model\Council
     /**
      * @{inheritdoc}
      */
-    public function removeRegion($region)
+    public function removeRegion(\Volleyball\Component\Organization\Model\Region $region)
     {
-        $this->regions->remove($region);
-
+        unset($this->regions[$region]);
+            
         return $this;
     }
 

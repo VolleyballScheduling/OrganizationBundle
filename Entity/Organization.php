@@ -149,7 +149,7 @@ class Organization extends \Volleyball\Component\Organization\Model\Organization
     /**
      * @{inheritdoc}
      */
-    public function addType(\Volleyball\Bundle\PasselBundle\Entity\Type $type)
+    public function addType(\Volleyball\Component\Passel\Model\Type $type)
     {
         $this->types->add($type);
 
@@ -159,7 +159,7 @@ class Organization extends \Volleyball\Component\Organization\Model\Organization
     /**
      * @{inheritdoc}
      */
-    public function removeType($type)
+    public function removeType(\Volleyball\Component\Passel\Model\Type $type)
     {
         $this->types->remove($type);
 
@@ -209,7 +209,7 @@ class Organization extends \Volleyball\Component\Organization\Model\Organization
     /**
      * @{inheritdoc}
      */
-    public function addCouncil(Council $council)
+    public function addCouncil(\Volleyball\Component\Organization\Model\Council $council)
     {
         $this->councils->add($council);
 
@@ -219,10 +219,10 @@ class Organization extends \Volleyball\Component\Organization\Model\Organization
     /**
      * @{inheritdoc}
      */
-    public function removeCouncil($council)
+    public function removeCouncil(\Volleyball\Component\Organization\Model\Council $council)
     {
-        $this->councils->remove($council);
-
+        unset($this->councils[$council]);
+            
         return $this;
     }
 
@@ -269,7 +269,7 @@ class Organization extends \Volleyball\Component\Organization\Model\Organization
     /**
      * @{inheritdoc}
      */
-    public function addRegion(Region $region)
+    public function addRegion(\Volleyball\Component\Organization\Model\Region $region)
     {
         $this->regions->add($region);
 
@@ -279,7 +279,7 @@ class Organization extends \Volleyball\Component\Organization\Model\Organization
     /**
      * @{inheritdoc}
      */
-    public function removeRegion($region)
+    public function removeRegion(\Volleyball\Component\Organization\Model\Region $region)
     {
         $this->regions->remove($region);
 

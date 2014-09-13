@@ -3,7 +3,7 @@ namespace Volleyball\Bundle\OrganizationBundle\Controller;
 
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
+use \Symfony\Component\HttpFoundation\Request;
 use \Pagerfanta\Pagerfanta;
 use \Pagerfanta\Adapter\DoctrineORMAdapter;
 
@@ -13,7 +13,7 @@ class RegionController extends \Volleyball\Bundle\UtilityBundle\Controller\Utili
      * @Route("/", name="volleyball_region_index")
      * @Template("VolleyballOrganizationBundle:Region:index.html.twig")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         // get route name/params to decypher data to delimit by
         $query = $this->get('doctrine')
@@ -34,8 +34,9 @@ class RegionController extends \Volleyball\Bundle\UtilityBundle\Controller\Utili
      * @Route("/{slug}", name="volleyball_region_show")
      * @Template("VolleyballOrganizationBundle:Region:show.html.twig")
      */
-    public function showAction($slug)
+    public function showAction(Request $request)
     {
+        $slug = $request->getParameter('slug');
         $region = $this->getDoctrine()
             ->getRepository('VolleyballOrganizationBundle:Region')
             ->findOneBySlug($slug);
@@ -56,7 +57,7 @@ class RegionController extends \Volleyball\Bundle\UtilityBundle\Controller\Utili
      * @Route("/new", name="volleyball_region_new")
      * @Template("VolleyballOrganizationBundle:Region:new.html.twig")
      */
-    public function newAction(\Symfony\Component\HttpFoundation\Request $request)
+    public function newAction(Request $request)
     {
         $region = new \Volleyball\Bundle\OrganizationBundle\Entity\Region();
         $form = $this->createForm(
