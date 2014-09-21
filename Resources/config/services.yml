@@ -1,7 +1,17 @@
-parameters:
-#    Volleyball_organization.example.class: Volleyball\OrganizationBundle\Example
-
 services:
-#    Volleyball_organization.example:
-#        class: %Volleyball_organization.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    volleyball.controller.organization:
+        class: Volleyball\Bundle\OrganizationBundle\Controller\OrganizationController
+        factory_service: sylius.controller.configuration_factory
+        factory_method: createConfiguration
+        arguments: ["sylius", "organization", "VolleyballOrganizationBundle:Attendee"]
+    volleyball.controller.council:
+        class: Volleyball\Bundle\OrganizationBundle\Controller\CouncilController
+        factory_service: sylius.controller.configuration_factory
+        factory_method: createConfiguration
+        arguments: ["sylius", "council", "VolleyballOrganizationBundle:Council"]
+    volleyball.controller.region:
+        class: Volleyball\Bundle\OrganizationBundle\Controller\RegionController
+        factory_service: sylius.controller.configuration_factory
+        factory_method: createConfiguration
+        arguments: ["sylius", "region", "VolleyballOrganizationBundle:Region"]
+    
