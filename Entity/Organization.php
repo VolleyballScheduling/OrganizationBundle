@@ -44,7 +44,7 @@ class Organization extends \Volleyball\Component\Organization\Model\Organization
     
     /**
      * @{inheritdoc}
-     * @ORM\OneToMany(targetEntity="Volleyball\Bundle\PasselBundle\Entity\Type", mappedBy="organization")
+     * @ORM\ManyToMany(targetEntity="Volleyball\Bundle\PasselBundle\Entity\Type", mappedBy="organizations")
      */
     protected $types;
     
