@@ -53,6 +53,11 @@ class Region
     protected $organization;
     
     /**
+     * @ORM\OneToMany(targetEntity="Volleyball\Bundle\CourseBundle\Entity\Course", mappedBy="region")
+     */
+    protected $courses;
+    
+    /**
      * Get id
      *
      * @return integer

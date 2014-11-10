@@ -59,6 +59,12 @@ class Organization extends \Volleyball\Component\Organization\Model\Organization
      * @ORM\OneToMany(targetEntity="Region", mappedBy="organization")
      */
     protected $regions;
+    
+    /**
+     * @inheritdoc
+     * @ORM\OneToMany(targetEntity="Volleyball\Bundle\CourseBundle\Entity\Course", mappedBy="organization")
+     */
+    protected $courses;
 
     /**
      * Get id
