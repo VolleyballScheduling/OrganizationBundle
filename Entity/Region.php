@@ -13,6 +13,9 @@ use Volleyball\Bundle\UtilityBundle\Traits\TimestampableTrait;
  */
 class Region
 {
+    use TimestampableTrait;
+    use SluggableTrait;
+    
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

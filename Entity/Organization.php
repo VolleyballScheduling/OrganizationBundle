@@ -12,7 +12,7 @@ use \Volleyball\Bundle\UtilityBundle\Traits\TimestampableTrait;
  * @ORM\Entity(repositoryClass="\Volleyball\Bundle\OrganizationBundle\Repository\OrganizationRepository")
  * @ORM\Table(name="organization")
  */
-class Organization extends \Volleyball\Component\Organization\Model\Organization
+class Organization
 {
     use SluggableTrait;
     use TimestampableTrait;
@@ -290,6 +290,15 @@ class Organization extends \Volleyball\Component\Organization\Model\Organization
         $this->regions->remove($region);
 
         return $this;
+    }
+    
+    /**
+     * To string
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**

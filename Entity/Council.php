@@ -12,7 +12,7 @@ use \Volleyball\Bundle\UtilityBundle\Traits\TimestampableTrait;
  * @ORM\Entity(repositoryClass="\Volleyball\Bundle\OrganizationBundle\Repository\CouncilRepository")
  * @ORM\Table(name="council")
  */
-class Council extends \Volleyball\Component\Organization\Model\Council
+class Council
 {
     use SluggableTrait;
     use TimestampableTrait;
