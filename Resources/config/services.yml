@@ -1,0 +1,17 @@
+services:
+    volleyball.controller.organization:
+        class: Volleyball\Bundle\OrganizationBundle\Controller\OrganizationController
+        factory_service: sylius.controller.configuration_factory
+        factory_method: createConfiguration
+        arguments: ["sylius", "organization", "VolleyballOrganizationBundle:Attendee"]
+    volleyball.controller.council:
+        class: Volleyball\Bundle\OrganizationBundle\Controller\CouncilController
+        factory_service: sylius.controller.configuration_factory
+        factory_method: createConfiguration
+        arguments: ["sylius", "council", "VolleyballOrganizationBundle:Council"]
+    volleyball.controller.region:
+        class: Volleyball\Bundle\OrganizationBundle\Controller\RegionController
+        factory_service: sylius.controller.configuration_factory
+        factory_method: createConfiguration
+        arguments: ["sylius", "region", "VolleyballOrganizationBundle:Region"]
+    

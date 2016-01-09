@@ -1,0 +1,6 @@
+organization:
+    resource: "@VolleyballOrganizationBundle/Resources/config/routing/organization.yml"
+council:
+    resource: "@VolleyballOrganizationBundle/Resources/config/routing/council.yml"
+region:
+    resource: "@VolleyballOrganizationBundle/Resources/config/routing/region.yml"

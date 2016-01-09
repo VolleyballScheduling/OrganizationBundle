@@ -1,0 +1,25 @@
+vb_organization_index:
+    path: /
+    host: organizations.{domain}
+    defauilts:
+        _controller: VolleyballOrganizationBundle:Organization:index
+        page: 1
+    requirements:
+        page: \d+
+        domain: %domain%
+vb_organization_show:
+    path: /{slug}
+    host: organizations.{domain}
+    defaults:
+        _controller: VolleyballOrganizationBundle:Organization:show
+        page: 1
+    requirements:
+        page: \d+
+        domain: %domain%
+vb_organization_edit:
+    path: /{slug}/edit
+    host: organizations.{domain}
+    defaults: { _controller: VolleyballOrganizationBundle:Organization:edit }
+    requirements:
+        slug: +s
+        domain: %domain%

@@ -1,0 +1,25 @@
+vb_region_index:
+    path: /
+    host: regions.{domain}
+    defauilts:
+        _controller: VolleyballOrganizationBundle:Region:index
+        page: 1
+    requirements:
+        page: \d+
+        domain: %domain%
+vb_region_show:
+    path: /{slug}
+    host: regions.{domain}
+    defaults:
+        _controller: VolleyballOrganizationBundle:Region:show
+        page: 1
+    requirements:
+        page: \d+
+        domain: %domain%
+vb_region_edit:
+    path: /{slug}/edit
+    host: regions.{domain}
+    defaults: { _controller: VolleyballOrganizationBundle:Region:edit }
+    requirements:
+        slug: +s
+        domain: %domain%

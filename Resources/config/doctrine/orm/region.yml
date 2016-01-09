@@ -1,0 +1,47 @@
+Volleyball\Bundle\OrganizationBundle\Entity\Region:
+    type: entity
+    table: region
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+        description:
+            type: string
+            nullable: true
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+        slug:
+            type: string
+            gedmo:
+                slug:
+                    fields:
+                        - name
+    ManyToOne:
+        organization:
+            targetEntity: Volleyball\Bundle\OrganizationBundle\Entity\Organization
+            inversedBy: region
+            joinColumn:
+                name: region_id
+                referencedColumnName: id
+        council:
+            targetEntity: Volleyball\Bundle\OrganizationBundle\Entity\Council
+            inversedBy: region
+            joinColumn:
+                name: region_id
+                referencedColumnName: id
+    OneToMany:
+        councils:
+            targetEntity: Volleyball\Bundle\CourseBundle\Entity\Course
+            mappedBy: region

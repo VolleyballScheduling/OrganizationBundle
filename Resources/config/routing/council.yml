@@ -1,0 +1,25 @@
+vb_council_index:
+    path: /
+    host: councils.{domain}
+    defauilts:
+        _controller: VolleyballOrganizationBundle:Council:index
+        page: 1
+    requirements:
+        page: \d+
+        domain: %domain%
+vb_council_show:
+    path: /{slug}
+    host: councils.{domain}
+    defaults:
+        _controller: VolleyballOrganizationBundle:Council:show
+        page: 1
+    requirements:
+        page: \d+
+        domain: %domain%
+vb_council_edit:
+    path: /{slug}/edit
+    host: councils.{domain}
+    defaults: { _controller: VolleyballOrganizationBundle:Council:edit }
+    requirements:
+        slug: +s
+        domain: %domain%
