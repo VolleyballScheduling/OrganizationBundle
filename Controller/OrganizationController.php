@@ -58,6 +58,4 @@ class OrganizationController extends \Volleyball\Bundle\UtilityBundle\Controller
     {
         return ['organization' => $organization];
     }
-
-
 }

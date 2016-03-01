@@ -17,5 +17,6 @@ class VolleyballOrganizationBundle extends \Knp\RadBundle\AppBundle\Bundle
      */
     public function buildContainer(array $config, ContainerBuilder $container)
     {
+
     }
 }

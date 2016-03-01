@@ -58,6 +58,4 @@ class RegionController extends \Volleyball\Bundle\UtilityBundle\Controller\Contr
     {
         return ['region' => $region];
     }
-
-
 }

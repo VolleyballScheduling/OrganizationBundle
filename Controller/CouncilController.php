@@ -58,6 +58,4 @@ class CouncilController extends \Volleyball\Bundle\UtilityBundle\Controller\Cont
     {
         return ['council' => $council];
     }
-
-
 }
